@@ -1,8 +1,10 @@
-version: '3.7'
+version: "3.7"
+
 services:
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./front.conf:/etc/nginx/
-    ports:
-       - 1235:80
+        ngnix_front-server:
+                image: nginx:latest
+                ports:
+                        - "1235:80"
+                volumes:
+                        -  './front.conf:/etc/ngnix/nginx.conf'
+
