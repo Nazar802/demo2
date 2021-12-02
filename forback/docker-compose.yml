@@ -1,8 +1,9 @@
-version: '3.7'
+version: "3.7"
+
 services:
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./back.conf:/etc/nginx/
-    ports:
-       - 1234:80
+        ngnix_back-server:
+                image: nginx:latest
+                ports:
+                        - "1234:80"
+                volumes:
+                        -  './back.conf:/etc/ngnix/nginx.conf'
