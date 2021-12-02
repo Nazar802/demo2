@@ -3,9 +3,9 @@ services:
   postgres:
     image: commonregistry646.azurecr.io/postgres:v1
     environment:
-      POSTGRES_DB: $DATASOURCE_DBNAME
-      POSTGRES_USER: $DATASOURCE_USER
-      POSTGRES_PASSWORD: $DATASOURCE_PASSWORD
+      POSTGRES_DB: $${DATASOURCE_DBNAME}
+      POSTGRES_USER: $${DATASOURCE_USER}
+      POSTGRES_PASSWORD: $${DATASOURCE_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - .:/docker-entrypoint-initdb.d
