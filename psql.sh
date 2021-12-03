@@ -1,6 +1,6 @@
 #!/bin/bash
 psql -Uadmin -dteachua
-insert into roles(name)
+insert into roles(`name`)
 values ('ROLE_ADMIN'),
        ('ROLE_USER');
 
