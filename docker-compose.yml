@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+   backend1:
+      image: commonregistry646.azurecr.io/backend:v1
+      environment:
+         DATASOURCE_URL: $DATASOURCE_URL
+         DATASOURCE_USER: $DATASOURCE_USER
+         DATASOURCE_PASSWORD: $DATASOURCE_PASSWORD
+         JWT_SECRET: $JWT_SECRET
+         MY_PASSWORD: $MY_PASSWORD
+      volumes:
+         -  './dev.war:/usr/local/tomcat/webapps/dev.war'
+      ports:
+         - "9832:8080"
+   
+   backend2:
+      image: commonregistry646.azurecr.io/backend:v1
+      environment:
+         DATASOURCE_URL: $DATASOURCE_URL
+         DATASOURCE_USER: $DATASOURCE_USER
+         DATASOURCE_PASSWORD: $DATASOURCE_PASSWORD
+         JWT_SECRET: $JWT_SECRET
+         MY_PASSWORD: $MY_PASSWORD
+      volumes:
+         -  './dev.war:/usr/local/tomcat/webapps/dev.war'
+      ports:
+         - "9833:8080"
