@@ -23,5 +23,6 @@ services:
          MY_PASSWORD: $MY_PASSWORD
       volumes:
          -  './dev.war:/usr/local/tomcat/webapps/dev.war'
+      entrypoint: bash -c 'sleep 20s && catalina.sh run'
       ports:
          - "9833:8080"
