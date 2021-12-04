@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
         ngnix_back-server:
-                image: nginx:latest
+                image: commonregistry646.azurecr.io/nginx:back
                 ports:
                         - "1234:80"
                 volumes:
