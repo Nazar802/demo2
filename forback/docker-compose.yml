@@ -4,6 +4,6 @@ services:
         ngnix_back-server:
                 image: commonregistry646.azurecr.io/nginx:back
                 ports:
-                        - "1234:80"
+                        - "1234:1234"
                 volumes:
-                        -  './back.conf:/etc/ngnix/nginx.conf'
+                        -  './back.conf:/etc/nginx/conf.d/back.conf'
