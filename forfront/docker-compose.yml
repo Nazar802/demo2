@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
         ngnix_front-server:
-                image: nginx:latest
+                image: commonregistry646.azurecr.io/nginx:front
                 ports:
                         - "1235:80"
                 volumes:
