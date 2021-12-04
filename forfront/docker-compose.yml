@@ -4,7 +4,7 @@ services:
         ngnix_front-server:
                 image: commonregistry646.azurecr.io/nginx:front
                 ports:
-                        - "1235:80"
+                        - "12345:1235"
                 volumes:
-                        -  './front.conf:/etc/ngnix/nginx.conf'
+                        -  './front.conf:/etc/nginx/conf.d/front.conf'
 
