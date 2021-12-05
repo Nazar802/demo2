@@ -10,4 +10,3 @@ COPY casc.yaml /var/jenkins_home/casc.yaml
 ADD --chown=jenkins:jenkins jobs /var/jenkins_home/jobs
 
 VOLUME /var/jenkins_home
-VOLUME /var/jenkins_home/credentials.xml
