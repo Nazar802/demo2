@@ -4,4 +4,4 @@ services:
       volumes:
          -  './build:/usr/share/nginx/html/'
       ports:
-         - 9932-9933:3000
+         - 9932-9933:80
