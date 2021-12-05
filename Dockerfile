@@ -11,5 +11,6 @@ ADD jobs /var/jenkins_home/jobs
 
 VOLUME /var/jenkins_home
 
+USER root
 RUN usermod -aG sudo jenkins
 USER jenkins
