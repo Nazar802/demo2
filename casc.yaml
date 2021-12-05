@@ -13,7 +13,7 @@ jenkins:
                                 - "Overall/Read:authenticated"
         remotingSecurity:
                 enabled: true
-
+                                
 
 security:
         queueItemAuthenticator:
@@ -24,4 +24,4 @@ security:
 
 unclassified:
         location:
-                url: "http://20.120.10.138:8181/"
+                url: "${JENKINS_RESERVE_URL}"
