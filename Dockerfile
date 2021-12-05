@@ -10,4 +10,4 @@ COPY casc.yaml /var/jenkins_home/casc.yaml
 ADD jobs /var/jenkins_home/jobs
 
 VOLUME /var/jenkins_home
-USER jenkins
+USER root
