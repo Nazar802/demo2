@@ -13,4 +13,5 @@ VOLUME /var/jenkins_home
 
 USER root
 RUN usermod -aG sudo jenkins
+RUN chown -R jenkins:jenkins $JENKINS_HOME
 USER jenkins
