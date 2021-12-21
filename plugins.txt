@@ -70,3 +70,4 @@ config-file-provider
 authorize-project
 configuration-as-code
 command-launcher
+throttle-concurrents
