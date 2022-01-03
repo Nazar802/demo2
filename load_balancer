@@ -1,0 +1,30 @@
+throttle(['Lock']) {
+    node {
+        def remote = [:]
+        
+        withCredentials([file(credentialsId: 'vm8', variable: 'v8key')]) {
+            remote.identityFile = v8key
+            remote.name = 'front'
+            remote.host = '20.124.183.101'
+            remote.user = 'azureuser'
+            remote.allowAnyHosts = true
+            
+            stage ('Cleanup') {
+                writeFile file: 'cleanup.sh', text:
+                "sudo rm -rf dockerfile\ndocker stop forfront_ngnix_front-server_1 || true && docker rm forfront_ngnix_front-server_1 || true\ndocker stop forback_ngnix_back-server_1 || true && docker rm forback_ngnix_back-server_1 || true"
+                sshScript remote: remote, script: "cleanup.sh"
+            }
+            
+            stage ('Scm Checkout') {
+                git branch: 'loadbalancer', url: 'https://github.com/Nazar802/dockerfile.git'
+                sshCommand remote: remote, command: 'git clone --branch loadbalancer https://github.com/Nazar802/dockerfile.git'
+            }
+            
+            stage ('Docker-Compose up') {
+                writeFile file: 'start.sh', text:
+                "cd dockerfile/forfront\nsudo docker-compose up -d\ncd ../forback\nsudo docker-compose up -d"
+                sshScript remote: remote, script: "start.sh"
+            }
+        }
+    }
+}

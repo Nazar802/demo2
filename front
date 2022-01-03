@@ -1,0 +1,30 @@
+throttle(['Lock']) {
+    node {
+        def remote = [:]
+        
+        withCredentials([file(credentialsId: 'vm8', variable: 'v8key')]) {
+            remote.identityFile = v8key
+            remote.name = 'front'
+            remote.host = '20.124.183.101'
+            remote.user = 'azureuser'
+            remote.allowAnyHosts = true
+            
+            stage ('Cleanup') {
+                writeFile file: 'cleanup.sh', text:
+                "sudo rm -rf dockerfile\ndocker stop dockerfile_frontend_1 || true && docker rm dockerfile_frontend_1 || true\ndocker stop dockerfile_frontend_2 || true && docker rm dockerfile_frontend_2 || true"
+                sshScript remote: remote, script: "cleanup.sh"
+            }
+            
+            stage ('Scm Checkout') {
+                git branch: 'front2', url: 'https://github.com/Nazar802/dockerfile.git'
+                sshCommand remote: remote, command: 'git clone --branch front2 https://github.com/Nazar802/dockerfile.git'
+            }
+            
+            stage ('Docker-Compose up') {
+                writeFile file: 'start.sh', text:
+                "cd dockerfile\ndocker-compose up -d --scale frontend=2"
+                sshScript remote: remote, script: "start.sh"
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+throttle(['Lock']) {
+    node {
+        def remote = [:]
+        
+        withCredentials([file(credentialsId: 'keyssh', variable: 'vm16')]){
+            remote.identityFile = vm16
+            remote.name = 'database'
+            remote.host = '20.120.10.138'
+            remote.user = 'azureuser'
+            remote.allowAnyHosts = true
+            
+            stage ('Cleanup') {
+                writeFile file: 'cleanup.sh', text:
+                "sudo rm -rf dockerfile\ndocker stop dockerfile_postgres_1 || true && docker rm dockerfile_postgres_1 || true"
+                sshScript remote: remote, script: "cleanup.sh"
+            }
+            
+            stage ('Scm Checkout') {
+                git branch: 'database', url: 'https://github.com/Nazar802/dockerfile.git'
+                sshCommand remote: remote, command: 'git clone --branch database https://github.com/Nazar802/dockerfile.git'
+            }
+            
+            stage ('Docker-Compose Up') {
+                writeFile file: 'start.sh', text: 
+                "cd dockerfile\nDATASOURCE_USER=${DATASOURCE_USER} DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD} DATASOURCE_DBNAME=${DATASOURCE_DBNAME} docker-compose up -d"
+                sshScript remote: remote, script: "start.sh"
+            }
+        }
+    }
+}
