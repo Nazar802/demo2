@@ -1,0 +1,7 @@
+services:
+   frontend:
+      image: commonregistry646.azurecr.io/frontend:v1
+      volumes:
+         -  './build:/usr/share/nginx/html/'
+      ports:
+         - 9932-9933:80
